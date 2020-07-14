@@ -30,15 +30,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.ebml.MasterElement;
 import org.ebml.UnsignedIntegerElement;
 import org.ebml.io.DataWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A cluster of frames in a file. Used internally during muxing.
  */
 class MatroskaCluster
 {
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaCluster.class);
   private final Queue<MatroskaFileFrame> frames = new ConcurrentLinkedQueue<>();
   private final Set<Integer> tracks = new HashSet<>();
   private final List<Long> sliencedTracks = new ArrayList<>();
@@ -108,11 +105,9 @@ class MatroskaCluster
       boolean forceNew = true;
       long prevTimecode = 0;
       int lastTrackNumber = 0;
-      LOG.trace("Timecode for cluster set to {}", clusterTimecode);
       for (final MatroskaFileFrame frame : frames)
       {
         frame.setTimecode(frame.getTimecode() - clusterTimecode);
-        LOG.trace("Timecode for frame set to {}", frame.getTimecode());
         if (forceNew || prevTimecode != frame.getTimecode() || lastTrackNumber != frame.getTrackNo())
         {
           if (block != null)

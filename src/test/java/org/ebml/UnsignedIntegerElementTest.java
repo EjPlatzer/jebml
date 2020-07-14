@@ -6,14 +6,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class UnsignedIntegerElementTest
 {
-
-  private static final Logger LOG = LoggerFactory.getLogger(UnsignedIntegerElementTest.class);
-
   private final MockWriter writer = new MockWriter();
   private final ProtoType<UnsignedIntegerElement> typeInfo = new ProtoType<>(UnsignedIntegerElement.class,
                                                                                                    "test",
@@ -60,7 +55,6 @@ public class UnsignedIntegerElementTest
       final long value = (long) (0x42 * Math.pow(256, i));
       final long size = Element.getMinByteSizeUnsigned(value);
       final long sizeSize = Element.getMinByteSizeUnsigned(size);
-      LOG.debug("Testing element {} val {} ({})", i, value, size);
 
       elem.setValue(value);
       Assert.assertEquals(value, elem.getValue());

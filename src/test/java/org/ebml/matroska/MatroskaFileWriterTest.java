@@ -19,12 +19,9 @@ import org.ebml.matroska.MatroskaFileTrack.TrackType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MatroskaFileWriterTest
 {
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaFileWriterTest.class);
   private File destination;
   private FileDataWriter ioDW;
   private MatroskaFileTrack testTrack;
@@ -74,7 +71,6 @@ public class MatroskaFileWriterTest
     reader.readFile();
     assertEquals(TrackType.SUBTITLE, reader.getTrackList()[0].getTrackType());
     assertEquals(42, reader.getTrackList()[0].getTrackNo());
-    LOG.info(reader.getReport());
     testDocTraversal();
   }
 
@@ -113,7 +109,6 @@ public class MatroskaFileWriterTest
     reader.readFile();
     assertEquals(TrackType.SUBTITLE, reader.getTrackList()[0].getTrackType());
     assertEquals(42, reader.getTrackList()[0].getTrackNo());
-    LOG.info(reader.getReport());
     testDocTraversal();
   }
 
@@ -131,7 +126,6 @@ public class MatroskaFileWriterTest
     reader.readFile();
     assertEquals(TrackType.SUBTITLE, reader.getTrackList()[0].getTrackType());
     assertEquals(42, reader.getTrackList()[0].getTrackNo());
-    LOG.info(reader.getReport());
     testDocTraversal();
   }
 
@@ -154,7 +148,6 @@ public class MatroskaFileWriterTest
     {
       return;
     }
-    LOG.info("Found element {} at level {}", levelN.getElementType().getName(), level);
 
     final int elemLevel = levelN.getElementType().getLevel();
     if (elemLevel != -1)

@@ -39,8 +39,6 @@ import org.ebml.SignedIntegerElement;
 import org.ebml.StringElement;
 import org.ebml.UnsignedIntegerElement;
 import org.ebml.io.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MatroskaFile
 {
@@ -48,7 +46,6 @@ public class MatroskaFile
    * Number of Clusters to search before assuming that a track has ended
    */
   public static final int CLUSTER_TRACK_SEARCH_COUNT = 4;
-  protected static final Logger LOG = LoggerFactory.getLogger(MatroskaFile.class);
 
   static
   {
@@ -133,10 +130,8 @@ public class MatroskaFile
     {
       endOfSegmentHeader = ioDS.getFilePointer();
       level1 = ((MasterElement) level0).readNextChild(reader);
-      LOG.debug("Got segment element");
       while (level1 != null)
       {
-        LOG.debug("Got {} element in segment", level1.getElementType().getName());
         if (level1.isType(MatroskaDocTypes.Info.getType()))
         {
           parseSegmentInfo(level1, level2);
@@ -291,7 +286,6 @@ public class MatroskaFile
     }
     catch (final RuntimeException ex)
     {
-      LOG.warn("Exception while looking for next frame for track {}", trackNo, ex);
       return null;
     }
 
@@ -746,7 +740,6 @@ public class MatroskaFile
 
   private void parseCues(MasterElement level1)
   {
-    LOG.debug("Parsing cues");
     for (Element level2 : level1.remainingChildren(ioDS, reader))
     {
       if (level2.isType(MatroskaDocTypes.CuePoint.getType()))
@@ -779,7 +772,6 @@ public class MatroskaFile
               }
             }
           }
-          LOG.debug("Found cue {}", cue);
         }
         cueList.add(cue);
       }

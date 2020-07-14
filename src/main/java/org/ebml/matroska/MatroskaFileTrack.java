@@ -30,8 +30,6 @@ import org.ebml.MasterElement;
 import org.ebml.StringElement;
 import org.ebml.UnsignedIntegerElement;
 import org.ebml.io.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>Matroska Track Class </p>
@@ -46,8 +44,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MatroskaFileTrack
 {
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaFileTrack.class);
-
   private int trackNo = 1;
   private long trackUID = 1337;
   private boolean flagEnabled = true;
@@ -83,7 +79,6 @@ public class MatroskaFileTrack
 
     public static TrackType fromOrdinal(final long l)
     {
-      LOG.debug("Track type from ordinal: {}", l);
       switch ((int) l)
       {
         case 1:
@@ -287,7 +282,6 @@ public class MatroskaFileTrack
     Element level3 = ((MasterElement) level2).readNextChild(reader);
     Element level4 = null;
     final MatroskaFileTrack track = new MatroskaFileTrack();
-    LOG.debug("Reading track from doc!");
     while (level3 != null)
     {
       if (level3.isType(MatroskaDocTypes.TrackNumber.getType()))
@@ -414,7 +408,6 @@ public class MatroskaFileTrack
       level3.skipData(ioDS);
       level3 = ((MasterElement) level2).readNextChild(reader);
     }
-    LOG.debug("Read track from doc!");
     return track;
   }
 
@@ -430,7 +423,6 @@ public class MatroskaFileTrack
 
     final UnsignedIntegerElement trackTypeElem = MatroskaDocTypes.TrackType.getInstance();
     trackTypeElem.setValue(this.getTrackType().type);
-    LOG.info("Track type set to {}", getTrackType().type);
 
     final UnsignedIntegerElement trackFlagEnabledElem = MatroskaDocTypes.FlagEnabled.getInstance();
     trackFlagEnabledElem.setValue(this.isFlagEnabled() ? 1 : 0);

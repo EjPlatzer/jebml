@@ -30,8 +30,6 @@ import java.util.Arrays;
 
 import org.ebml.io.DataSource;
 import org.ebml.io.DataWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Defines the basic EBML element. Subclasses may provide child element access.
@@ -40,7 +38,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Element
 {
-  protected static final Logger LOG = LoggerFactory.getLogger(Element.class);
   private static int minSizeLength = 0;
 
   private Element parent;
@@ -67,8 +64,6 @@ public class Element
     source.read(this.data);
     data.flip();
     dataRead = true;
-
-    LOG.trace("Read {} bytes from {}", size, typeInfo.getName());
   }
 
   /**
@@ -86,7 +81,6 @@ public class Element
 
   public long writeElement(final DataWriter writer)
   {
-    LOG.trace("Writing element {} with size {}", typeInfo.getName(), getTotalSize());
     return writeHeaderData(writer) + writeData(writer);
   }
 
@@ -108,7 +102,6 @@ public class Element
     buf.put(getType());
     buf.put(encodedSize);
     buf.flip();
-    LOG.trace("Writing out header {}, {}", buf.remaining(), EBMLReader.bytesToHex(buf));
     writer.write(buf);
     return len;
   }
@@ -125,7 +118,6 @@ public class Element
     data.mark();
     try
     {
-      LOG.trace("Writing data {} bytes", data.remaining());
       return writer.write(data);
     }
     finally
@@ -327,7 +319,6 @@ public class Element
     }
     // The first size bits should be clear, otherwise we have an error in the size determination.
     ret[0] |= 0x80 >> (len - 1);
-    LOG.trace("Ebml coded size {} for {}", EBMLReader.bytesToHex(ByteBuffer.wrap(ret)), size);
     return ret;
   }
 

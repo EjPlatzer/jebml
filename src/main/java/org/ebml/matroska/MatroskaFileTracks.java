@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 import org.ebml.MasterElement;
 import org.ebml.io.DataWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MatroskaFileTracks
 {
   private static final int BLOCK_SIZE = 4096;
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaFileTracks.class);
 
   private final ArrayList<MatroskaFileTrack> tracks = new ArrayList<>();
 
@@ -38,7 +35,6 @@ public class MatroskaFileTracks
 
   public void update(final DataWriter ioDW)
   {
-    LOG.info("Updating tracks list!");
     final long start = ioDW.getFilePointer();
     ioDW.seek(myPosition);
     writeTracks(ioDW);

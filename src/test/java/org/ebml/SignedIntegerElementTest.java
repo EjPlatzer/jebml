@@ -6,14 +6,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SignedIntegerElementTest
 {
-
-  private static final Logger LOG = LoggerFactory.getLogger(UnsignedIntegerElementTest.class);
-
   private final MockWriter writer = new MockWriter();
   private final ProtoType<SignedIntegerElement> typeInfo = new ProtoType<>(SignedIntegerElement.class,
                                                                            "test",
@@ -37,7 +32,6 @@ public class SignedIntegerElementTest
     for (int i = 0; i < 8; ++i)
     {
       final long value = (long) (42 * Math.pow(256, i));
-      LOG.debug("Testing {} for {}", value, i);
       elem.setValue(value);
       Assert.assertEquals(value, elem.getValue());
       elem.writeData(writer);
@@ -59,7 +53,6 @@ public class SignedIntegerElementTest
     for (int i = 0; i < 7; ++i)
     {
       final long value = (long) (-42 * Math.pow(256, i));
-      LOG.debug("Testing {} for {}", value, i);
       elem.setValue(value);
       Assert.assertEquals(value, elem.getValue());
       elem.writeData(writer);
@@ -83,7 +76,6 @@ public class SignedIntegerElementTest
       final long value = (long) (42 * Math.pow(256, i));
       final long size = Element.getMinByteSize(value);
       final long sizeSize = Element.getMinByteSizeUnsigned(size);
-      LOG.debug("Testing element {} val {} ({})", i, value, size);
 
       elem.setValue(value);
       Assert.assertEquals(value, elem.getValue());
@@ -110,7 +102,6 @@ public class SignedIntegerElementTest
       final long value = (long) (-42 * Math.pow(256, i));
       final long size = Element.getMinByteSize(value);
       final long sizeSize = Element.getMinByteSizeUnsigned(size);
-      LOG.debug("Testing element {} val {} ({})", i, value, size);
 
       elem.setValue(value);
       Assert.assertEquals(value, elem.getValue());

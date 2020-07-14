@@ -22,8 +22,6 @@ package org.ebml;
 import java.nio.ByteBuffer;
 
 import org.ebml.io.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * EBMLReader.java
@@ -68,7 +66,6 @@ import org.slf4j.LoggerFactory;
  */
 public class EBMLReader
 {
-  private static final Logger LOG = LoggerFactory.getLogger(EBMLReader.class);
   private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
   protected DataSource source;
@@ -116,7 +113,6 @@ public class EBMLReader
     {
       return null;
     }
-    LOG.trace("Read element {}", elem.getElementType().getName());
 
     // Read the size.
     final long elementSize = readEBMLCode(source);
@@ -125,7 +121,6 @@ public class EBMLReader
     // Set it's size
     elem.setSize(elementSize);
     elem.setHeadersSize(end - position);
-    LOG.trace("Read element {} with size {}", elem.getElementType().getName(), elem.getTotalSize());
 
     // Return the element
     return elem;
@@ -163,7 +158,6 @@ public class EBMLReader
     // Begin loop with byte set to newly read byte.
     final byte firstByte = source.readByte();
     final int numBytes = readEBMLCodeSize(firstByte);
-    LOG.trace("Reading ebml code of {} bytes", numBytes);
     if (numBytes == 0)
     {
       // Invalid size
@@ -206,7 +200,6 @@ public class EBMLReader
       final long n = read.get() & 0xFF;
       size = size | (n << (8 * i));
     }
-    LOG.trace("Parsed ebml code {} as {}", bytesToHex(data), size);
     return size;
   }
 
@@ -373,7 +366,6 @@ public class EBMLReader
 
     if (numBytes == 0)
     {
-      LOG.warn("Failed to read ebml code size from {} -- most likely end of file", firstByte);
       // Invalid size
       return null;
     }

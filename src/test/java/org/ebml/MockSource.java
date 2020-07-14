@@ -3,13 +3,10 @@ package org.ebml;
 import java.nio.ByteBuffer;
 
 import org.ebml.io.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MockSource implements DataSource
 {
   @SuppressWarnings("unused")
-  private static final Logger LOG = LoggerFactory.getLogger(MockSource.class);
   private final ByteBuffer buffer;
 
   public MockSource(final ByteBuffer buffer)

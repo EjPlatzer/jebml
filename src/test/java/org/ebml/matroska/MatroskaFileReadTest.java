@@ -12,12 +12,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MatroskaFileReadTest
 {
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaFileReadTest.class);
   private static File destination;
   private static MatroskaFileTrack testTrack;
   private static MatroskaFileTagEntry testTag;
@@ -81,7 +78,6 @@ public class MatroskaFileReadTest
   @Test
   public void testSeek()
   {
-    LOG.debug("Testing seek");
     long seeked = file.seek(123, false);
     MatroskaFileFrame nextFrame = file.getNextFrame();
     Assert.assertEquals(120, seeked);

@@ -34,14 +34,12 @@ public class MasterElement extends Element
   {
     if (usedSize >= this.getSize())
     {
-      LOG.trace("Can't read any more children");
       return null;
     }
 
     final Element elem = reader.readNextElement();
     if (elem == null)
     {
-      LOG.debug("Reader returned null");
       return null;
     }
 
@@ -49,7 +47,6 @@ public class MasterElement extends Element
 
     usedSize += elem.getTotalSize();
 
-    LOG.trace("Read element {} of size {}: {} remaining", elem.getElementType().getName(), elem.getTotalSize(), getSize() - usedSize);
     return elem;
   }
 

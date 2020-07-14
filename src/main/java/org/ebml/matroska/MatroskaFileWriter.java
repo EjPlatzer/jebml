@@ -27,16 +27,12 @@ import org.ebml.MasterElement;
 import org.ebml.StringElement;
 import org.ebml.UnsignedIntegerElement;
 import org.ebml.io.DataWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Primary API entrypoint for writing Matroska files.
  */
 public class MatroskaFileWriter implements Closeable
 {
-  private static final Logger LOG = LoggerFactory.getLogger(MatroskaFileWriter.class);
-
   protected DataWriter ioDW;
 
   private MatroskaFileMetaSeek metaSeek;
@@ -271,7 +267,6 @@ public class MatroskaFileWriter implements Closeable
   {
     initialize();
 
-    LOG.debug("Cluster flushing, timecode {}", cluster.getClusterTimecode());
     cluster.flush(ioDW);
   }
 

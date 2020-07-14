@@ -4,19 +4,14 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tests {@link BitSet} 
  */
 public class BitSetTest
 {
-  private static final Logger LOG = LoggerFactory.getLogger(BitSetTest.class);
-
   private void testBits(int expectByte, int... bits)
   {
-    LOG.info("Testing bits {}, expecting {}", Arrays.toString(bits), expectByte);
     BitSet bitSet = new BitSet(8);
     for (int bit : bits)
     {

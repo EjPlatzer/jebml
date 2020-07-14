@@ -3,13 +3,10 @@ package org.ebml;
 import java.nio.ByteBuffer;
 
 import org.ebml.io.DataWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MockWriter implements DataWriter
 {
   @SuppressWarnings("unused")
-  private static final Logger LOG = LoggerFactory.getLogger(MockWriter.class);
   private final ByteBuffer buff = ByteBuffer.allocate(4096);
 
   @Override
